@@ -2,24 +2,18 @@
 <html>
   <head>
     <title>JuneAI</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-D/1kbkGRiCfQhZSSpwYT9KcNanYlTDpnyhMlUvREJ1kTU6EQUrPAwKzBvP06XyIz" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="apple-touch-icon" sizes="562x562" href="https://raw.githubusercontent.com/ifxhashpay/ifxhashpay.github.io/main/Screenshot%202023-03-13%20at%2019.42.30.png">
   </head>
   <body>
-    <div class="chat-container">
-      <div class="chat-header">
-        <h1><i class="fas fa-robot"></i> JuneAI</h1>
-      </div>
-      <div class="chat-history" id="chat-history">
-        <!-- Chat history will be displayed here -->
-      </div>
-      <div class="chat-input">
-        <form id="chat-form">
-          <input type="text" id="user-input" placeholder="Type your message...">
-          <button type="submit"><i class="fas fa-paper-plane"></i></button>
-        </form>
-      </div>
-    </div>
+    <h1>JuneAI</h1>
+    <hr>
+    <div id="chat-container"></div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your message...">
+      <button type="submit">Send</button>
+    </form>
     <script src="app.js"></script>
   </body>
 </html>
