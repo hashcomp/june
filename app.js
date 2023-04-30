@@ -31,17 +31,6 @@ function generateResponse(userMessage) {
     response = "No problem 😊";
   } else if (userMessage.includes("thank you")) {
     response = "No problem 😊";
-  } else if (userMessage.includes("tell me a joke") {
-    const jokes = [
-    "Why did the tomato turn red? Because it saw the salad dressing!",
-    "Why did the scarecrow win an award? Because he was outstanding in his field!",
-    "Why don't scientists trust atoms? Because they make up everything!",
-    "What do you call a fake noodle? An impasta!",
-    "Why don't skeletons fight each other? They don't have the guts!",
-  ];
-    const randomIndex = Math.floor(Math.random() * jokes.length);
-    const joke = jokes[randomIndex];
-    response = joke;
   } else if (userMessage.startsWith("what is") || userMessage.startsWith("who was")) {
     const query = userMessage.replace("what is", "").replace("who was", "");
     fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${query}`)
