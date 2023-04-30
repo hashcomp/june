@@ -82,16 +82,6 @@
       <input type="text" id="user-input" placeholder="Type your message...">
       <button type="submit">Send</button>
     </form>
-    <br>
-    <iframe id="searchFrame" src=""></iframe>
-
-    <script>
-      function search() {
-        var userInput = document.getElementById("user-input").value;
-        var searchUrl = "https://piper-ai.github.io/seARch/seARch.html?q=" + userInput;
-        document.getElementById("searchFrame").src = searchUrl;
-      }
-    </script>
 
     <script src="app.js"></script>
   </body>
