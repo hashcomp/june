@@ -10,25 +10,6 @@ const jokes = [
   ];
 const randomIndex = Math.floor(Math.random() * jokes.length);
 const joke = jokes[randomIndex];
-const trendingTopics = [
-  {
-    topic: "COVID-19",
-    summary: "COVID-19 is a highly infectious respiratory illness caused by the SARS-CoV-2 virus.",
-    links: [
-      "https://www.who.int/health-topics/coronavirus#tab=tab_1",
-      "https://www.cdc.gov/coronavirus/2019-ncov/index.html"
-    ]
-  },
-  {
-    topic: "Climate Change",
-    summary: "Climate change refers to the long-term changes in the Earth's climate, including changes in temperature, precipitation, and sea levels, caused by human activities such as burning fossil fuels and deforestation.",
-    links: [
-      "https://www.epa.gov/climate-indicators/climate-change-indicators-atmospheric-concentrations-greenhouse-gases",
-      "https://www.climate.gov/"
-    ]
-  },
-  // Add more trending topics and their summaries and links here
-];
 
 let previousQuestion = null;
 let userName = null;
@@ -37,12 +18,6 @@ let userName = null;
 function generateResponse(userMessage) {
   userMessage = userMessage.toLowerCase(); 
   let response;
-  for (let i = 0; i < trendingTopics.length; i++) {
-    const topic = trendingTopics[i].topic.toLowerCase();
-    if (userMessage.includes(topic)) {
-      const summary = trendingTopics[i].summary;
-      const links = trendingTopics[i].links;
-      response = `${summary}\n\nLearn more:\n${links.join("\n")}`;
 
   if (previousQuestion && previousQuestion.includes("what's your name")) {
     userName = userMessage;
