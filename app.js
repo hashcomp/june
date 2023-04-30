@@ -5,6 +5,12 @@ const userInput = document.getElementById("user-input");
 let previousQuestion = null;
 let userName = null;
 
+function search() {
+			var searchInput = document.getElementById("searchInput").value;
+			var searchUrl = "https://piper-ai.github.io/seARch/seARch.html?q=" + user-input;
+			document.getElementById("searchFrame").src = searchUrl;
+		}
+
 function generateResponse(userMessage) {
   userMessage = userMessage.toLowerCase(); 
   let response;
