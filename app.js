@@ -34,7 +34,6 @@ function generateResponse(userMessage) {
       const summary = trendingTopics[i].summary;
       const links = trendingTopics[i].links;
       response = `${summary}\n\nLearn more:\n${links.join("\n")}`;
-      break;
 
   if (previousQuestion && previousQuestion.includes("what's your name")) {
     userName = userMessage;
