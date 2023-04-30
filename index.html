@@ -3,14 +3,14 @@
   <head>
     <title>JuneAI</title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<link rel="apple-touch-icon" sizes="562x562" href="https://raw.githubusercontent.com/ifxhashpay/ifxhashpay.github.io/main/Screenshot%202023-03-13%20at%2019.42.30.png">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon" sizes="562x562" href="https://raw.githubusercontent.com/ifxhashpay/ifxhashpay.github.io/main/Screenshot%202023-03-13%20at%2019.42.30.png">
   </head>
   <body>
     <h1>JuneAI</h1>
     <hr>
     <div id="chat-container"></div>
-    <form id="chat-form">
+    <form id="chat-form" onsubmit="search(); return false;">
       <input type="text" id="user-input" placeholder="Type your message...">
       <button type="submit">Send</button>
     </form>
