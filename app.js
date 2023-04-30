@@ -1,6 +1,15 @@
 const chatContainer = document.getElementById("chat-container");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
+const jokes = [
+    "Why did the tomato turn red? Because it saw the salad dressing!",
+    "Why did the scarecrow win an award? Because he was outstanding in his field!",
+    "Why don't scientists trust atoms? Because they make up everything!",
+    "What do you call a fake noodle? An impasta!",
+    "Why don't skeletons fight each other? They don't have the guts!",
+  ];
+const randomIndex = Math.floor(Math.random() * jokes.length);
+const joke = jokes[randomIndex];
 const trendingTopics = [
   {
     topic: "COVID-19",
@@ -56,15 +65,7 @@ function generateResponse(userMessage) {
     response = "No problem 😊";
   } else if (userMessage.includes("thank you")) {
     response = "No problem 😊";
-  else if (userMessage.includes("tell me a joke") || userMessage.includes("do you know any funny jokes")) {
-  const jokes = [
-    "Why did the tomato turn red? Because it saw the salad dressing!",
-    "Why did the scarecrow win an award? Because he was outstanding in his field!",
-    "Why don't scientists trust atoms? Because they make up everything!",
-    "What do you call a fake noodle? An impasta!",
-    "Why don't skeletons fight each other? They don't have the guts!",];
-    const randomIndex = Math.floor(Math.random() * jokes.length);
-    const joke = jokes[randomIndex];
+  } else if (userMessage.includes("tell me a joke") {
     response = joke;
   } else if (userMessage.startsWith("what is") || userMessage.startsWith("who was")) {
     const query = userMessage.replace("what is", "").replace("who was", "");
