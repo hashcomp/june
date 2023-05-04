@@ -19,12 +19,20 @@ function generateResponse(userMessage) {
     } else {
       response = "Hello!";
     }
+  else if (userMessage.includes("+") || userMessage.includes("-") || userMessage.includes("*") || userMessage.includes("/")) {
+    try {
+      // Use eval() function to evaluate the expression and return the result as a response
+      response = eval(userMessage)" 🤗";
+    } catch (error) {
+      response = "Sorry, I couldn't evaluate that expression. 😔";
+    }
+  }
   } else if (userMessage.includes("how are you")) {
-    response = "I'm doing well, thank you for asking! How are you?";
+    response = "I'm doing well, thank you for asking! How are you? 😀";
   } else if (userMessage.includes("what is your name")) {
-    response = "My name is June, and I'm an AI-powered assistant designed to help you find information.";
+    response = "My name is June, and I'm an AI-powered assistant designed to help you find information. 😀";
   } else if (userMessage.includes("who are you")) {
-    response = "My name is June, and I'm an AI-powered assistant designed to help you find information.";
+    response = "My name is June, and I'm an AI-powered assistant designed to help you find information. 😀";
   } else if (userMessage.includes("no")) {
     response = "Oh!";
   } else if (userMessage.includes("thanks")) {
@@ -55,7 +63,7 @@ function generateResponse(userMessage) {
   } else if (userMessage.toLowerCase().includes("i feel")) {
     const emotion = userMessage.toLowerCase().split("i feel ")[1];
     if (emotion.includes("happy") || emotion.includes("glad")) {
-      response = "That's great to hear!";
+      response = "That's great to hear! 😁";
     } else if (emotion.includes("sad") || emotion.includes("unhappy")) {
       response = "I'm sorry to hear that. Is there anything I can do to help?";
     } else if (emotion.includes("angry") || emotion.includes("frustrated")) {
