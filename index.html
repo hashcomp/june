@@ -72,15 +72,22 @@
       }
       
       /* Link Styles */
-      a {
+      .link-container {
+        color: var(--text-color);
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
+      .link-container a {
         color: var(--text-color);
         font-weight: bold;
         text-decoration: none;
+        margin-right: 5px;
       }
     </style>
   </head>
   <body>
-    <div>
+    <div class="link-container">
       <em><strong>Psst!</strong></em> Try out other stuff
       <a href="https://whsprr.koiltech.repl.co">whsprr</a> makes:
       <a href="https://ifxhashpay.github.io">hashpay</a>,
