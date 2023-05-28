@@ -19,15 +19,13 @@
         font-family: Arial, sans-serif;
         height: 100vh;
         margin: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        padding: 20px;
       }
       
       #chat-container {
         width: 100%;
         max-width: 500px;
+        margin-top: 20px;
         padding: 20px;
         box-sizing: border-box;
         overflow-y: auto;
@@ -72,10 +70,24 @@
         width: 100%;
         height: 40%;
       }
+      
+      /* Link Styles */
+      a {
+        color: var(--text-color);
+        font-weight: bold;
+        text-decoration: none;
+      }
     </style>
   </head>
-    <body>
-  <em><strong>Psst!</strong></em> Try out other stuff <a href="https://whsprr.koiltech.repl.co">whsprr</a> makes: <a href="https://ifxhashpay.github.io">hashpay</a>, <a href="https://friendnet.koiltech.repl.co">friendnet/mail</a>, and whsprrtap.<hr>
+  <body>
+    <div>
+      <em><strong>Psst!</strong></em> Try out other stuff
+      <a href="https://whsprr.koiltech.repl.co">whsprr</a> makes:
+      <a href="https://ifxhashpay.github.io">hashpay</a>,
+      <a href="https://friendnet.koiltech.repl.co">friendnet/mail</a>,
+      and whsprrtap.
+    </div>
+    <hr>
     <h1>JuneAI</h1>
     <hr>
     <div id="chat-container"></div>
