@@ -19,14 +19,13 @@ function generateResponse(userMessage) {
     } else {
       response = "Hello!";
     }
-  else if (userMessage.includes("+") || userMessage.includes("-") || userMessage.includes("*") || userMessage.includes("/")) {
+  } else if (userMessage.includes("+") || userMessage.includes("-") || userMessage.includes("*") || userMessage.includes("/")) {
     try {
       // Use eval() function to evaluate the expression and return the result as a response
-      response = eval(userMessage)" 🤗";
+      response = eval(userMessage) + " 🤗";
     } catch (error) {
       response = "Sorry, I couldn't evaluate that expression. 😔";
     }
-  }
   } else if (userMessage.includes("how are you")) {
     response = "I'm doing well, thank you for asking! How are you? 😀";
   } else if (userMessage.includes("what is your name")) {
