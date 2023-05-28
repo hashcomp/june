@@ -7,7 +7,7 @@ let userName = null;
 
 
 function generateResponse(userMessage) {
-  userMessage = userMessage.toLowerCase(); 
+  userMessage = userMessage.toLowerCase();
   let response;
 
   if (previousQuestion && previousQuestion.includes("what's your name")) {
@@ -57,7 +57,7 @@ function generateResponse(userMessage) {
     return;
   } else if (userMessage.toLowerCase().includes("time")) {
     const now = new Date();
-    const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     response = `The current time is ${time}`;
   } else if (userMessage.toLowerCase().includes("i feel")) {
     const emotion = userMessage.toLowerCase().split("i feel ")[1];
@@ -81,13 +81,13 @@ function generateResponse(userMessage) {
 function displayMessage(message, sender) {
   const messageElement = document.createElement("div");
   messageElement.classList.add(sender);
-  
+
   if (sender === "user") {
     messageElement.innerText = "User: " + message; // prepend "User: " to user messages
   } else {
     messageElement.innerText = "JuneAI: " + message; // prepend "JuneAI: " to bot messages
   }
-  
+
   chatContainer.appendChild(messageElement);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
