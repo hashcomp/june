@@ -5,6 +5,8 @@ const userInput = document.getElementById("user-input");
 let previousQuestion = null;
 let userName = null;
 
+// Markov chain data
+const markovData = {};
 
 function generateResponse(userMessage) {
   userMessage = userMessage.toLowerCase();
@@ -70,6 +72,8 @@ function generateResponse(userMessage) {
     } else {
       response = "Thank you for sharing your feelings with me.";
     }
+  } else if (userMessage.toLowerCase().includes("gen")) {
+    response = generateSentence();
   } else {
     response = "I'm sorry, I don't understand. Can you please rephrase your question?";
   }
@@ -91,6 +95,50 @@ function displayMessage(message, sender) {
   chatContainer.appendChild(messageElement);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+
+function trainMarkovChain(text) {
+  const words = text.toLowerCase().split(/\s+/);
+
+  for (let i = 0; i < words.length - 1; i++) {
+    const currentWord = words[i];
+    const nextWord = words[i + 1];
+
+    if (!markovData[currentWord]) {
+      markovData[currentWord] = [];
+    }
+
+    markovData[currentWord].push(nextWord);
+  }
+}
+
+function generateSentence() {
+  const startWords = Object.keys(markovData);
+  let currentWord = startWords[Math.floor(Math.random() * startWords.length)];
+  let sentence = currentWord;
+
+  for (let i = 0; i < 200; i++) {
+    const nextWords = markovData[currentWord];
+    if (!nextWords) {
+      break;
+    }
+
+    const nextWord = nextWords[Math.floor(Math.random() * nextWords.length)];
+    sentence += " " + nextWord;
+    currentWord = nextWord;
+  }
+
+  return sentence;
+}
+
+// Train the Markov chain with a text file (replace 'path/to/text/file.txt' with the actual path)
+fetch('file.txt')
+  .then(response => response.text())
+  .then(text => {
+    trainMarkovChain(text);
+  })
+  .catch(error => {
+    console.log('Failed to fetch or parse the text file:', error);
+  });
 
 chatForm.addEventListener("submit", event => {
   event.preventDefault();
