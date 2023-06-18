@@ -142,18 +142,23 @@ function displayMessage(message, sender) {
     // Simulate typing effect
     let index = 0;
     const typingDelay = 50; // Adjust the typing speed by changing the delay (in milliseconds)
-    const typingInterval = setInterval(() => {
-      if (message[index] === " ") {
-        messageElement.innerHTML += "&nbsp;"; // Display space as HTML non-breaking space
+
+    const typeCharacters = () => {
+      if (index < message.length) {
+        const character = message[index];
+        if (character === " ") {
+          messageElement.innerHTML += "&nbsp;"; // Display space as HTML non-breaking space
+        } else {
+          messageElement.innerText += character;
+        }
+        index++;
+        setTimeout(typeCharacters, typingDelay);
       } else {
-        messageElement.innerText += message[index];
-      }
-      index++;
-      if (index === message.length) {
-        clearInterval(typingInterval);
         chatContainer.scrollTop = chatContainer.scrollHeight;
       }
-    }, typingDelay);
+    };
+
+    setTimeout(typeCharacters, typingDelay);
   }
 
   chatContainer.appendChild(messageElement);
