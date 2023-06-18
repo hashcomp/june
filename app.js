@@ -51,11 +51,11 @@ function generateResponse(userMessage) {
           response += ` ${data.content_urls.desktop.page}`;
         }
         previousQuestion = userMessage;
-        displayMessage(response, "bot");
+        displayMessageWithTyping(response, "bot");
       })
       .catch(error => {
         response = "I'm sorry, I couldn't find any information on that.";
-        displayMessage(response, "bot");
+        displayMessageWithTyping(response, "bot");
       });
     return;
   } else if (userMessage.toLowerCase().includes("time")) {
@@ -92,7 +92,40 @@ function generateResponse(userMessage) {
   }
 
   previousQuestion = userMessage;
-  displayMessage(response, "bot");
+  displayMessageWithTyping(response, "bot");
+}
+
+// Function to display a message with typing effect
+function displayMessageWithTyping(message, sender) {
+  const messageElement = document.createElement("div");
+  messageElement.classList.add(sender);
+
+  const messageTextElement = document.createElement("p");
+  messageElement.appendChild(messageTextElement);
+
+  if (sender === "user") {
+    messageTextElement.innerText = "User: " + message; // prepend "User: " to user messages
+  } else {
+    messageTextElement.innerText = "JuneAI: ";
+
+    // Create a span element for the typing effect
+    const typingEffectSpan = document.createElement("span");
+    messageTextElement.appendChild(typingEffectSpan);
+
+    // Start the typing effect
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      if (i < message.length) {
+        typingEffectSpan.innerText += message.charAt(i);
+        i++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 50); // Adjust the typing speed by changing the interval (milliseconds)
+  }
+
+  chatContainer.appendChild(messageElement);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 function displayMessage(message, sender) {
@@ -125,72 +158,63 @@ function trainMarkovChain(text) {
 }
 
 function generateSentence() {
-  const startWords = Object.keys(markovData);
-  let currentWord = startWords[Math.floor(Math.random() * startWords.length)];
-  let sentence = currentWord;
+  const words = Object.keys(markovData);
+  const startingWord = words[Math.floor(Math.random() * words.length)];
 
-  for (let i = 0; i < 200; i++) {
+  let sentence = startingWord;
+  let currentWord = startingWord;
+
+  while (markovData[currentWord]) {
     const nextWords = markovData[currentWord];
-    if (!nextWords) {
-      break;
-    }
-
     const nextWord = nextWords[Math.floor(Math.random() * nextWords.length)];
+
     sentence += " " + nextWord;
     currentWord = nextWord;
+
+    if (sentence.length > 100) {
+      break;
+    }
   }
 
   return sentence;
 }
 
 function playNumberGuessingGame(userMessage) {
+  const number = parseInt(userMessage.split(" ")[1]);
+
+  if (isNaN(number)) {
+    return "Please provide a valid number.";
+  }
+
   if (!randomNumber) {
-    randomNumber = Math.floor(Math.random() * 10) + 1;
-    return "I'm thinking of a number between 1 and 10. Can you guess what it is?";
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+  }
+
+  if (number < randomNumber) {
+    return "Too low! Try guessing a higher number.";
+  } else if (number > randomNumber) {
+    return "Too high! Try guessing a lower number.";
   } else {
-    const userGuess = parseInt(userMessage.match(/\d+/)[0], 10);
-    if (userGuess === randomNumber) {
-      randomNumber = null;
-      return "Congratulations! You guessed the correct number.";
-    } else if (userGuess < randomNumber) {
-      return "Nope, try guessing a little higher.";
-    } else if (userGuess > randomNumber) {
-      return "Nope, try guessing a little lower.";
-    } else {
-      return "Please enter a valid number.";
-    }
+    const response = `Congratulations! You guessed the correct number (${randomNumber}). Let me know if you want to play again.`;
+    randomNumber = null;
+    return response;
   }
 }
 
-function getRandomResponse() {
-  const responses = [
-    "Interesting, tell me more.",
-    "I'm not sure, could you provide more information?",
-    "I'll need more context to answer that.",
-    "I'm sorry, I don't have that information at the moment.",
-    "Let me check on that for you.",
-    "I'm afraid I can't answer that question.",
-    "I'm always here to help! What else would you like to know?",
-    "That's a good question. Give me a moment to think.",
-    "I'm sorry, I didn't understand that. Could you rephrase it?",
-  ];
-  return responses[Math.floor(Math.random() * responses.length)];
-}
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const userMessage = userInput.value;
+  displayMessage(userMessage, "user");
+  userInput.value = "";
+  generateResponse(userMessage);
+});
 
-// Train the Markov chain with a text file (replace 'path/to/text/file.txt' with the actual path)
-fetch('file.txt')
+// Training the Markov chain data
+fetch("file.txt")
   .then(response => response.text())
   .then(text => {
     trainMarkovChain(text);
   })
   .catch(error => {
-    console.log('Failed to fetch or parse the text file:', error);
+    console.log("Error while fetching training data:", error);
   });
-
-chatForm.addEventListener("submit", event => {
-  event.preventDefault();
-  const userMessage = userInput.value;
-  displayMessage(userMessage, "user");
-  generateResponse(userMessage);
-  userInput.value = "";
-});
