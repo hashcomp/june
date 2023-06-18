@@ -6,8 +6,8 @@
     <style>
       /* Colors */
       :root {
-        --background-color: white;
-        --text-color: black;
+        --background-color: #000;
+        --text-color: #fff;
         --input-background-color: #222;
         --input-color: #eee;
       }
@@ -20,20 +20,16 @@
         height: 100vh;
         margin: 0;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-      }
-      
-      #container {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        box-sizing: border-box;
+        justify-content: center;
       }
       
       #chat-container {
-        margin-top: 20px;
+        width: 100%;
+        max-width: 500px;
+        padding: 20px;
+        box-sizing: border-box;
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--text-color) var(--background-color);
@@ -44,6 +40,7 @@
         align-items: center;
         margin-top: 20px;
         width: 100%;
+        max-width: 500px;
       }
       
       input[type="text"] {
@@ -75,41 +72,16 @@
         width: 100%;
         height: 40%;
       }
-      
-      /* Link Styles */
-      .link-container {
-        color: var(--text-color);
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-      
-      .link-container a {
-        color: var(--text-color);
-        font-weight: bold;
-        text-decoration: none;
-        margin-right: 5px;
-      }
     </style>
   </head>
   <body>
-    <div id="container">
-      <div class="link-container">
-        <em><strong>Psst!</strong></em> Try out other stuff
-        <a href="https://whsprr.koiltech.repl.co">whsprr</a> makes:
-        <a href="https://ifxhashpay.github.io">hashpay</a>,
-        <a href="https://friendnet.koiltech.repl.co">friendnet/mail</a>,
-        and whsprrtap.
-      </div>
-      <centre>
-      <h1>JuneAI</h1>
-      </centre>
-      <hr>
-      <div id="chat-container"></div>
-      <form id="chat-form" onsubmit="search(); return false;">
-        <input type="text" id="user-input" placeholder="Type your message...">
-        <button type="submit">Send</button>
-      </form>
-    </div>
+    <h1>JuneAI</h1>
+    <hr>
+    <div id="chat-container"></div>
+    <form id="chat-form" onsubmit="search(); return false;">
+      <input type="text" id="user-input" placeholder="Type your message...">
+      <button type="submit">Send</button>
+    </form>
 
     <script src="app.js"></script>
   </body>
