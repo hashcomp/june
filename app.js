@@ -143,7 +143,11 @@ function displayMessage(message, sender) {
     let index = 0;
     const typingDelay = 50; // Adjust the typing speed by changing the delay (in milliseconds)
     const typingInterval = setInterval(() => {
-      messageElement.innerText += message[index];
+      if (message[index] === " ") {
+        messageElement.innerHTML += "&nbsp;"; // Display space as HTML non-breaking space
+      } else {
+        messageElement.innerText += message[index];
+      }
       index++;
       if (index === message.length) {
         clearInterval(typingInterval);
@@ -155,6 +159,7 @@ function displayMessage(message, sender) {
   chatContainer.appendChild(messageElement);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+
 
 
 function trainMarkovChain(text) {
