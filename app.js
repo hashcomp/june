@@ -51,11 +51,11 @@ function generateResponse(userMessage) {
           response += ` ${data.content_urls.desktop.page}`;
         }
         previousQuestion = userMessage;
-        displayMessageWithTyping(response, "bot");
+        displayMessage(response, "bot");
       })
       .catch(error => {
         response = "I'm sorry, I couldn't find any information on that.";
-        displayMessageWithTyping(response, "bot");
+        displayMessage(response, "bot");
       });
     return;
   } else if (userMessage.toLowerCase().includes("time")) {
@@ -75,8 +75,6 @@ function generateResponse(userMessage) {
     }
   } else if (userMessage.toLowerCase().includes("gen")) {
     response = generateSentence();
-  } else if (userMessage.includes("guess")) {
-    response = playNumberGuessingGame(userMessage);
   } else if (userMessage.includes("how old are you")) {
     response = "I don't have an age as I am an AI, but I was created in 2021.";
   } else if (userMessage.includes("where are you from")) {
@@ -87,13 +85,16 @@ function generateResponse(userMessage) {
     response = "As an AI, I don't have personal preferences, including favorite colors.";
   } else if (userMessage.includes("what can you do")) {
     response = "I can answer questions, provide information, do basic calculations, and have conversations with you.";
+  } else if (userMessage.includes("guess")) {
+    response = playNumberGuessingGame(userMessage);
   } else {
     response = "I'm sorry, I don't understand. Can you please rephrase your question?";
   }
 
   previousQuestion = userMessage;
-  displayMessageWithTyping(response, "bot");
+  displayMessage(response, "bot");
 }
+
 
 // Function to display a message with typing effect
 function displayMessageWithTyping(message, sender) {
