@@ -9,6 +9,13 @@ let randomNumber = null;
 // Markov chain data
 const markovData = {};
 
+function speak(message) {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(message);
+    speechSynthesis.speak(utterance);
+  }
+}
+
 function generateResponse(userMessage) {
   userMessage = userMessage.toLowerCase();
   let response;
@@ -87,9 +94,13 @@ function generateResponse(userMessage) {
     response = "I can answer questions, provide information, do basic calculations, and have conversations with you.";
   } else if (userMessage.includes("guess")) {
     response = playNumberGuessingGame(userMessage);
+  } else if (userMessage.includes("say")) {
+    const messageToSay = userMessage.replace("say", "");
+    speak(messageToSay);
+    return;
   } else {
     response = "I'm sorry, I don't understand. Can you please rephrase your question?";
-  }
+  } 
 
   previousQuestion = userMessage;
   displayMessage(response, "bot");
