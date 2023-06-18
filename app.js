@@ -4,6 +4,7 @@ const userInput = document.getElementById("user-input");
 
 let previousQuestion = null;
 let userName = null;
+let randomNumber = null;
 
 // Markov chain data
 const markovData = {};
@@ -74,6 +75,18 @@ function generateResponse(userMessage) {
     }
   } else if (userMessage.toLowerCase().includes("gen")) {
     response = generateSentence();
+  } else if (userMessage.includes("guess")) {
+    response = playNumberGuessingGame(userMessage);
+  } else if (userMessage.includes("how old are you")) {
+    response = "I don't have an age as I am an AI, but I was created in 2021.";
+  } else if (userMessage.includes("where are you from")) {
+    response = "I am a virtual assistant, so I don't have a physical location. But I am here to help you!";
+  } else if (userMessage.includes("tell me a joke")) {
+    response = "Sure, here's a joke for you: Why don't scientists trust atoms? Because they make up everything!";
+  } else if (userMessage.includes("what's your favorite color")) {
+    response = "As an AI, I don't have personal preferences, including favorite colors.";
+  } else if (userMessage.includes("what can you do")) {
+    response = "I can answer questions, provide information, do basic calculations, and have conversations with you.";
   } else {
     response = "I'm sorry, I don't understand. Can you please rephrase your question?";
   }
@@ -128,6 +141,40 @@ function generateSentence() {
   }
 
   return sentence;
+}
+
+function playNumberGuessingGame(userMessage) {
+  if (!randomNumber) {
+    randomNumber = Math.floor(Math.random() * 10) + 1;
+    return "I'm thinking of a number between 1 and 10. Can you guess what it is?";
+  } else {
+    const userGuess = parseInt(userMessage.match(/\d+/)[0], 10);
+    if (userGuess === randomNumber) {
+      randomNumber = null;
+      return "Congratulations! You guessed the correct number.";
+    } else if (userGuess < randomNumber) {
+      return "Nope, try guessing a little higher.";
+    } else if (userGuess > randomNumber) {
+      return "Nope, try guessing a little lower.";
+    } else {
+      return "Please enter a valid number.";
+    }
+  }
+}
+
+function getRandomResponse() {
+  const responses = [
+    "Interesting, tell me more.",
+    "I'm not sure, could you provide more information?",
+    "I'll need more context to answer that.",
+    "I'm sorry, I don't have that information at the moment.",
+    "Let me check on that for you.",
+    "I'm afraid I can't answer that question.",
+    "I'm always here to help! What else would you like to know?",
+    "That's a good question. Give me a moment to think.",
+    "I'm sorry, I didn't understand that. Could you rephrase it?",
+  ];
+  return responses[Math.floor(Math.random() * responses.length)];
 }
 
 // Train the Markov chain with a text file (replace 'path/to/text/file.txt' with the actual path)
