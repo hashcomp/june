@@ -136,12 +136,26 @@ function displayMessage(message, sender) {
   if (sender === "user") {
     messageElement.innerText = "User: " + message; // prepend "User: " to user messages
   } else {
-    messageElement.innerText = "JuneAI: " + message; // prepend "JuneAI: " to bot messages
+    messageElement.innerText = "JuneAI: ";
+    chatContainer.appendChild(messageElement);
+
+    // Simulate typing effect
+    let index = 0;
+    const typingDelay = 50; // Adjust the typing speed by changing the delay (in milliseconds)
+    const typingInterval = setInterval(() => {
+      messageElement.innerText += message[index];
+      index++;
+      if (index === message.length) {
+        clearInterval(typingInterval);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    }, typingDelay);
   }
 
   chatContainer.appendChild(messageElement);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+
 
 function trainMarkovChain(text) {
   const words = text.toLowerCase().split(/\s+/);
