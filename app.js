@@ -15,6 +15,22 @@ function speak(message) {
     speechSynthesis.speak(utterance);
   }
 }
+function sendSMS(message) {
+  const url = `sms:?body=${encodeURIComponent(message)}`;
+  window.location.href = url;
+}
+function fetchCountryCapital(country) {
+  return fetch(`https://restcountries.com/v2/name/${country}`)
+    .then(response => response.json())
+    .then(data => {
+      const capital = data[0].capital;
+      return capital;
+    })
+    .catch(error => {
+      console.log("Error while fetching country capital:", error);
+      return null;
+    });
+}
 
 function generateResponse(userMessage) {
   userMessage = userMessage.toLowerCase();
@@ -92,6 +108,50 @@ function generateResponse(userMessage) {
     response = "As an AI, I don't have personal preferences, including favorite colors.";
   } else if (userMessage.includes("what can you do")) {
     response = "I can answer questions, provide information, do basic calculations, and have conversations with you.";
+  } else if (userMessage.includes("help")) {
+    response = "Of course! I'm here to help. What do you need assistance with?";
+} else if (userMessage.includes("can you recommend")) {
+    response = "Sure! What kind of recommendation are you looking for?";
+} else if (userMessage.includes("weather")) {
+    response = "I'm sorry, I don't have access to real-time weather information. You can check a weather website or app for the current weather conditions.";
+} else if (userMessage.includes("how can I contact you")) {
+    response = "I'm an AI assistant, so you can interact with me through this chat interface. How can I assist you?";
+} else if (userMessage.includes("how does this work")) {
+    response = "I use natural language processing techniques to understand and generate responses based on your inputs. Feel free to ask me questions or engage in a conversation.";
+} else if (userMessage.includes("what is the meaning of life")) {
+    response = "The meaning of life is a philosophical question that has been debated for centuries. It can have different interpretations depending on personal beliefs and perspectives.";
+} else if (userMessage.includes("tell me a fun fact")) {
+    response = "Sure, here's a fun fact: The world's oldest known joke is a Sumerian proverb from 1900 BC that says, 'Something which has never occurred since time immemorial; a young woman did not fart in her husband's lap.'";
+} else if (userMessage.includes("can you sing")) {
+    response = "I'm an AI assistant, so I don't have a singing voice. However, I can help you with information or engage in a conversation.";
+    } else if (userMessage.includes("where can I find")) {
+    response = "You can try searching on the internet or checking relevant websites or stores near your location.";
+} else if (userMessage.includes("tell me a story")) {
+    response = "Once upon a time, in a land far away, there was a brave knight who embarked on a quest to save the kingdom from an evil dragon...";
+} else if (userMessage.includes("how do I")) {
+    response = "To accomplish that, you can follow these steps: [provide step-by-step instructions]";
+} else if (userMessage.includes("recommend a book")) {
+    response = "What genre or type of book are you interested in? That would help me provide a more relevant recommendation.";
+} else if (userMessage.includes("movie recommendation")) {
+    response = "Sure! What genre or type of movie are you in the mood for?";
+} else if (userMessage.includes("tell me a riddle")) {
+    response = "Here's a riddle for you: I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?";
+    } else if (userMessage.includes("what's the capital of")) {
+  const country = userMessage.split("capital of")[1].trim();
+  fetchCountryCapital(country)
+    .then(capital => {
+      if (capital) {
+        response = `The capital of ${country} is ${capital}.`;
+      } else {
+        response = "Sorry, I couldn't find the capital for that country.";
+      }
+      displayMessage(response, "bot");
+    });
+  return;
+  } else if (userMessage.startsWith("send")) {
+  const message = userMessage.replace("send", "").trim();
+  sendSMS(message);
+  return;
   } else if (userMessage.includes("guess")) {
     response = playNumberGuessingGame(userMessage);
   } else if (userMessage.includes("say")) {
