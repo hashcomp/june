@@ -16,9 +16,15 @@ function speak(message) {
   }
 }
 function sendSMS(message) {
-  const url = `sms:?body=${encodeURIComponent(message)}`;
+  const url = `sms:?&body=${encodeURIComponent(message)}`;
   window.location.href = url;
 }
+function searchNearby(query) {
+  const encodedQuery = encodeURIComponent(query);
+  const url = `https://www.google.com/maps/search/?api=1&query=${encodedQuery}`;
+  window.open(url, "_blank");
+}
+
 function fetchCountryCapital(country) {
   return fetch(`https://restcountries.com/v2/name/${country}`)
     .then(response => response.json())
@@ -147,6 +153,10 @@ function generateResponse(userMessage) {
       }
       displayMessage(response, "bot");
     });
+  return;
+  } else if (userMessage.startsWith("where is the nearest")) {
+  const query = userMessage.replace("where is the nearest", "").trim();
+  searchNearby(query);
   return;
   } else if (userMessage.startsWith("send")) {
   const message = userMessage.replace("send", "").trim();
