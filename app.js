@@ -98,6 +98,24 @@ function generateResponse(userMessage) {
     const messageToSay = userMessage.replace("say", "");
     speak(messageToSay);
     return;
+    } else if (userMessage.startsWith("define")) {
+    const word = userMessage.replace("define", "").trim();
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0 && data[0].meanings && data[0].meanings.length > 0) {
+          const definition = data[0].meanings[0].definitions[0].definition;
+          response = `The definition of ${word} is: ${definition}`;
+        } else {
+          response = `Sorry, I couldn't find the definition for ${word}.`;
+        }
+        displayMessage(response, "bot");
+      })
+      .catch(error => {
+        response = "I'm sorry, there was an error retrieving the definition.";
+        displayMessage(response, "bot");
+      });
+    return;
   } else {
     response = "I'm sorry, I don't understand. Can you please rephrase your question?";
   } 
