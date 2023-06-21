@@ -105,7 +105,7 @@ function generateResponse(userMessage) {
   } else if (userMessage.toLowerCase().includes("gen")) {
     response = generateSentence();
   } else if (userMessage.includes("how old are you")) {
-    response = "I don't have an age as I am an AI, but I was created in 2021.";
+    response = "I don't have an age as I am an AI, but I was created in 2022.";
   } else if (userMessage.includes("where are you from")) {
     response = "I am a virtual assistant, so I don't have a physical location. But I am here to help you!";
   } else if (userMessage.includes("tell me a joke")) {
@@ -142,6 +142,10 @@ function generateResponse(userMessage) {
     response = "Sure! What genre or type of movie are you in the mood for?";
 } else if (userMessage.includes("tell me a riddle")) {
     response = "Here's a riddle for you: I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?";
+    } else if (userMessage.includes("nevermind")) {
+    response = "Oh Ok 🫢";
+    } else if (userMessage.includes("huh")) {
+    response = "Oh Ok 🫢";
     } else if (userMessage.includes("what's the capital of")) {
   const country = userMessage.split("capital of")[1].trim();
   fetchCountryCapital(country)
