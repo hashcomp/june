@@ -16,7 +16,7 @@ function speak(message) {
   }
 }
 function sendSMS(message) {
-  const url = `sms:?&body=${encodeURIComponent(message)}`;
+  const url = `sms:?&body=${encodeURIComponent(message)} sent with JuneAI`;
   window.location.href = url;
 }
 function searchNearby(query) {
