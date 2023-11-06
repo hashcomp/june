@@ -1,6 +1,39 @@
 const chatContainer = document.getElementById("chat-container");
 const chatForm = document.getElementById("chat-form");
-const userInput = document.getElementById("user-input");
+// Declare variables and initialize the SpeechRecognition object
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.continuous = true;
+recognition.interimResults = false;
+
+// Function to start speech recognition
+document.getElementById('start-recognition').addEventListener('click', () => {
+  recognition.start();
+  document.getElementById('start-recognition').style.display = 'none';
+  document.getElementById('stop-recognition').style.display = 'block';
+});
+
+// Function to stop speech recognition
+document.getElementById('stop-recognition').addEventListener('click', () => {
+  recognition.stop();
+  document.getElementById('stop-recognition').style.display = 'none';
+  document.getElementById('start-recognition').style.display = 'block';
+});
+
+// Event handler for when speech is recognized
+recognition.onresult = (event) => {
+  const message = event.results[event.results.length - 1][0].transcript;
+  addMessage('user', message);
+  // Here, you can send the message for processing or chatbot interaction
+};
+
+// Function to add the recognized message to the chat container
+function addMessage(sender, message) {
+  const chatContainer = document.getElementById('chat-container');
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add(sender);
+  messageDiv.textContent = message;
+  chatContainer.appendChild(messageDiv);
+}
 
 let previousQuestion = null;
 let userName = null;
