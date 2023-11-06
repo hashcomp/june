@@ -1,6 +1,7 @@
 const chatContainer = document.getElementById("chat-container");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
+const startRecognitionButton = document.getElementById("start-recognition");
 
 let previousQuestion = null;
 let userName = null;
@@ -239,5 +240,39 @@ function handleFormSubmit(event) {
     generateResponse(userMessage);
   }
 }
+const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+recognition.continuous = true;
+recognition.interimResults = true;
+
+// Handle speech recognition results
+recognition.onresult = function (event) {
+  const interimTranscript = "";
+  for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
+    const transcript = event.results[i][0].transcript;
+    if (event.results[i].isFinal) {
+      // If a final result is received, update the user input field and submit the form.
+      userInput.value = transcript;
+      chatForm.dispatchEvent(new Event('submit'));
+    } else {
+      // If an interim result is received, update the interim transcript.
+      interimTranscript += transcript;
+    }
+  }
+};
+
+// Start and stop speech recognition
+startRecognitionButton.addEventListener('click', function () {
+  if (recognition.lang) {
+    // If recognition is already started, stop it.
+    recognition.stop();
+    startRecognitionButton.textContent = "Start Speech Recognition";
+  } else {
+    // If recognition is not started, start it.
+    recognition.lang = 'en-US'; // Set the desired language
+    recognition.start();
+    userInput.value = ""; // Clear the user input field
+    startRecognitionButton.textContent = "Stop Speech Recognition";
+  }
+});
 
 chatForm.addEventListener("submit", handleFormSubmit);
